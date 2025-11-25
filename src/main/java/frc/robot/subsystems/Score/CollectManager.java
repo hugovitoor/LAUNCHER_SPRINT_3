@@ -15,33 +15,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class CollectManager extends SubsystemBase {
-  SparkMax collectorMotor = new SparkMax(Constants.COLLECT_MOTOR_ID, SparkMax.MotorType.kBrushed);
-  DigitalInput gamePieceIn = new DigitalInput(Constants.GAME_PIECE_SENSOR_ID);;
-
+ 
   public CollectManager() {
-   SparkMaxConfig collectorConfig = new SparkMaxConfig();
-   collectorConfig.idleMode(IdleMode.kBrake);
-   collectorConfig.inverted(false);
-
-   collectorMotor.configure(collectorConfig, 
-   ResetMode.kResetSafeParameters, 
-   PersistMode.kPersistParameters);
-
-
   }
-
-  public void setPower(double power) {
-    collectorMotor.set(power);
-  }
-
-  public void stopMotor() {
-    collectorMotor.stopMotor();
-  }
-
-  public boolean isGamePieceIn() {
-    return !gamePieceIn.get();
-  }
-
 
   @Override
   public void periodic() {

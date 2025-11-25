@@ -25,5 +25,6 @@ public static final int BOOST_UP_MOTOR_ID = 8;
 
 // Sensor IDs
 public static final int GAME_PIECE_SENSOR_ID = 0;
+public static final double INPUT_MAX_OUTPUT = 0;
 
 }
