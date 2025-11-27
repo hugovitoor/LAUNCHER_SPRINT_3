@@ -22,7 +22,7 @@ public class GoToPositionCommand extends Command {
     private final Encoder encoder;
     private final InputSubsystem input;
     private final LimeLightSubsystem lime;
-    private final Joystick controle;
+    // private final Joystick PS5Controller;
 
     private boolean movingToTarget = false;
     private double targetPosition = Constants.Angular.posZero;
@@ -32,7 +32,7 @@ public class GoToPositionCommand extends Command {
 
     private static final double TOL = Constants.Angular.toleranciaMin;
     private static final double MAX_OUT = Constants.Angular.maxOutput;
-    private static final double MANUAL = Constants.Angular.manualMove;
+    // private static final double MANUAL = Constants.Angular.manualMove;
 
     public GoToPositionCommand(
         AngularSubsystem angular,
@@ -82,8 +82,8 @@ public class GoToPositionCommand extends Command {
             return;
         }
 
-        double L2 = controle.getRawAxis(Constants.Joystick.L2);
-        double R2 = controle.getRawAxis(Constants.Joystick.R2);
+        // double L2 = controle.getRawAxis(Constants.Joystick.L2);
+        // double R2 = controle.getRawAxis(Constants.Joystick.R2);
 
         if (L2 > TOL && current > POS_ZERO) {
             angular.move(MANUAL);

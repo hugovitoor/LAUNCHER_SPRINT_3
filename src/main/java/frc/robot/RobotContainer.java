@@ -11,20 +11,18 @@ import frc.robot.subsystems.Score.CollectManager;
 import frc.robot.subsystems.Score.CollectSubsystem;
 import frc.robot.subsystems.Score.InputManager;
 import frc.robot.subsystems.Score.InputSubsystem;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DefaultDriveCommand;
-import frc.robot.commands.DriveDistanceCommand;
-import frc.robot.commands.GoToAprilTagCommand;
+import frc.robot.commands.GoToPositionCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LimeLight;
 
 public class RobotContainer {
 
-  private final PS5Controller systemController = new PS5Controller(Constants.SYSTEM_CONTROLLER_ID);
+  private final PS5Controller sJoystick = new PS5Controller(Constants.PS5Controller.joystickID);
+  private final Joystick ljoystick = new Joystick(Constants.LJoystick.joystickID);
 
   private final CollectSubsystem collectSubsystem = new CollectSubsystem();
   private final BoostSubsystem boostSubsystem = new BoostSubsystem();
@@ -35,17 +33,26 @@ public class RobotContainer {
   private final InputManager inputManager = new InputManager();
 
   //// VITOR ===============
-  private final DriveSubsystem driveSubsystem = new Drivetrain();
+    private final DriveSubsystem driveSubsystem = new Drivetrain();
     private final ThroughBore rightEncoder = new ThroughBore();
 
     private final LimeLight llfront = new LimeLight();
     private final LimeLight llback = new LimeLight();
 
-    private final Joystick ljoystick = new Joystick(Constants.Joystick.lJoystick);
-    private final Joystick sjoystick = new Joystick(Constants.Joystick.sJoystick);
-
     private final DefaultDriveCommand defaultDriveCommand = new DefaultDriveCommand(driveSubsystem, ljoystick);
-    private final SendableChooser<Command> chooser = new SendableChooser<>();
+    private final GoToPositionCommand goToPositionCommand = new GoToPositionCommand(
+        inputManager.getInputSubsystem(),
+        angularManager.getEncoder(),
+        sjoystick,
+        angularManager.getAngularSubsystem(),
+        llfront,
+        boostManager.getBoostSubsystem()
+    );
+
+    driveSubsystem.setDefaultCommand(defaultDriveCommand);
+    public Command getTeleopCommand() {
+        return defaultDriveCommand.alongWith(goToPositionCommand);
+    }    
 
   public RobotContainer() {
       configureBindings();
@@ -54,37 +61,35 @@ public class RobotContainer {
   private void configureBindings() {
 
     //pos minima 
-    new Trigger(() -> systemController.getSquareButton())
+    new Trigger(() -> PS5Controller.getSquareButton())
     .onTrue(new InstantCommand(() -> angularManager.calibrateMinPos()));
 
-    new Trigger(() -> systemController.getTriangleButton())
+    new Trigger(() -> PS5Controller.getTriangleButton())
     .onTrue(new InstantCommand(() -> angularManager.calibrateMaxPos()));
 
     //########## MANUAL DO ANGULAR ##########
-    new Trigger(() -> systemController.getR2Axis() > 0.04)
+    new Trigger(() -> PS5Controller.getR2Axis() > 0.04)
     .onTrue(new InstantCommand(() -> angularManager.setManual()))
     .whileTrue(new InstantCommand(() -> angularManager.setManualPower(0.5)))
     .onFalse(new InstantCommand(() -> angularManager.stopManual()));
 
-    new Trigger(() -> systemController.getL2Axis() > 0.04)
+    new Trigger(() -> PS5Controller.getL2Axis() > 0.04)
     .onTrue(new InstantCommand(() -> angularManager.setManual()))
     .whileTrue(new InstantCommand(() -> angularManager.setManualPower(-0.5)))
     .onFalse(new InstantCommand(() -> angularManager.stopManual()));
 
 
     //########## AUTOMÁTICO ANGULAR ##########
-    new Trigger(() -> systemController.getL1Button())
+    new Trigger(() -> PS5Controller.getL1Button())
     .onTrue(new InstantCommand(() -> angularManager.goToMin()));
 
-    new Trigger(() -> systemController.getR1Button())
+    new Trigger(() -> PS5Controller.getR1Button())
     .onTrue(new InstantCommand(() -> angularManager.goToMax()));
 
   }
 
   //Fazer os outros botoes do sistema assim que pegar todos os valores necessarios para liberar
   //os que estao sendo usados na calibração e no manual 
-
-
 
   ///// VITOR ==============
   /// 

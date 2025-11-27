@@ -14,6 +14,7 @@ import frc.robot.Constants;
 public class CollectSubsystem extends SubsystemBase {
 
   private final SparkMax collectMotor = new SparkMax(Constants.COLLECT_MOTOR_ID, SparkMax.MotorType.kBrushed);
+  private final SparkMax retractMotor = new SparkMax(Constants.RETRACT_MOTOR_ID, SparkMax.MotorType.kBrusheless);
 
   private final DigitalInput gamePieceSensor = new DigitalInput(Constants.GAME_PIECE_SENSOR_ID);
 
@@ -35,6 +36,14 @@ public class CollectSubsystem extends SubsystemBase {
     collectMotor.stopMotor();
   }
 
+  public void setRetractPower(double power) {
+    retractMotor.set(power);
+  }
+
+  public void stopRetract() {
+    retractMotor.stopMotor();
+  }
+  
   public boolean gamePieceDetected() {
     return !gamePieceSensor.get();
   }

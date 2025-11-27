@@ -10,7 +10,7 @@ import frc.robot.utils.MathUtils;
 public class DefaultDriveCommand extends Command {
 
     private final Drivetrain drivetrain;
-    private final Joystick controle1;
+    private final Joystick ljoystick;
 
     private double speed = Constants.Joystick.speedB;
     private final MathUtils math = new MathUtils();
@@ -23,22 +23,22 @@ public class DefaultDriveCommand extends Command {
 
     @Override
     public void execute() {
-        double eixoX1 = controle1.getRawAxis(Constants.LControl.eixoX);
-        double eixoY1 = -controle1.getRawAxis(Constants.LControl.eixoY);
-        double eixoX2 = controle1.getRawAxis(Constants.LControl.eixoX2);
-        double eixoY2 = -controle1.getRawAxis(Constants.LControl.eixoY2);
+        double eixoX1 = ljoystick.getRawAxis(Constants.Joystick.eixoX);
+        double eixoY1 = -ljoystick.getRawAxis(Constants.Joystick.eixoY);
+        double eixoX2 = ljoystick.getRawAxis(Constants.Joystick.eixoX2);
+        double eixoY2 = -ljoystick.getRawAxis(Constants.Joystick.eixoY2);
 
-        double L2 = controle1.getRawAxis(Constants.LControl.L2);
-        double R2 = controle1.getRawAxis(Constants.LControl.R2);
-        int pov = controle1.getPOV();
+        // double L2 = ljoystick.getRawAxis(Constants.Joystick.L2);
+        // double R2 = ljoystick.getRawAxis(Constants.Joystick.R2);
+        int pov = ljoystick.getPOV();
 
-        boolean botaoA = controle1.getRawButton(Constants.LControl.botaoA);
-        boolean botaoB = controle1.getRawButton(Constants.LControl.botaoB);
-        boolean botaoX = controle1.getRawButton(Constants.LControl.botaoX);
+        boolean botaoA = ljoystick.getRawButton(Constants.Joystick.botaoA);
+        boolean botaoB = ljoystick.getRawButton(Constants.Joystick.botaoB);
+        boolean botaoX = ljoystick.getRawButton(Constants.Joystick.botaoX);
 
-        if (botaoA) speed = Constants.LControl.speedA;
-        else if (botaoB) speed = Constants.LControl.speedB;
-        else if (botaoX) speed = Constants.LControl.speedX;
+        if (botaoA) speed = Constants.Joystick.speedA;
+        else if (botaoB) speed = Constants.Joystick.speedB;
+        else if (botaoX) speed = Constants.Joystick.speedX;
 
         double velEsq = 0;
         double velDir = 0;

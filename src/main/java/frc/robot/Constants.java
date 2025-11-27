@@ -6,6 +6,7 @@ public final class Constants {
 
 // Motor IDs
 public static final int COLLECT_MOTOR_ID = 5;
+public static final int RETRACT_MOTOR_ID = 4;
 public static final int INPUT_MOTOR_ID = 6;
 public static final int BOOST_DOWN_MOTOR_ID = 7;
 public static final int BOOST_UP_MOTOR_ID = 8;
@@ -34,7 +35,6 @@ public static final String ANG_PREF_TARGET = "AngularTargetAngle";
 public static final String ANG_PREF_MIN_ANGLE = "AngularMinAngle";
 public static final String ANG_PREF_MAX_ANGLE = "AngularMaxAngle";
 public static final int SYSTEM = 0;
-public static final int SYSTEM_CONTROLLER_ID = 0;
 
     public static final class LimeLight {
       public static final String limelightFront = "limelight-front";
@@ -67,19 +67,41 @@ public static final int SYSTEM_CONTROLLER_ID = 0;
         public static final double deadzone = 0.04;
     }
 
-    public static final class Joystick {
-        public static final int sJoystick = 3;
-        public static final int lJoystick = 0;
+    public static final class LJoystick {
+        public static final int joystickID = 3;
 
         public static final int eixoX = 0;
         public static final int eixoY = 1;
         public static final int eixoX2 = 4;
         public static final int eixoY2 = 5;
 
-        public static final int botaoA = 1;
-        public static final int botaoB = 2;
-        public static final int botaoX = 3;
-        public static final int botaoY = 4;
+        public static final int botaoA = 1; // X ou A
+        public static final int botaoB = 2; // Circulo ou B 
+        public static final int botaoX = 3; // Quadrado ou X
+        public static final int botaoY = 4; // Triangulo ou Y 
+
+        public static final int L1 = 5;
+        public static final int R1 = 6;
+        public static final int L2 = 2;
+        public static final int R2 = 3;
+
+        public static final double speedA = 0.25;
+        public static final double speedB = 0.5;
+        public static final double speedX = 1.0;
+    }
+
+    public static final class PS5Controller {
+        public static final int joystickID = 0;
+
+        public static final int eixoX = 0;
+        public static final int eixoY = 1;
+        public static final int eixoX2 = 4;
+        public static final int eixoY2 = 5;
+
+        public static final int botaoA = 1; // X ou A
+        public static final int botaoB = 2; // Circulo ou B 
+        public static final int botaoX = 3; // Quadrado ou X
+        public static final int botaoY = 4; // Triangulo ou Y 
 
         public static final int L1 = 5;
         public static final int R1 = 6;
